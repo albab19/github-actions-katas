@@ -10,3 +10,5 @@ jobs:
         run: bash ci/build-app.sh
       - name: test-step
         run: ci/unit-test-app.sh
+      - name: Unload Repo
+        run: .
