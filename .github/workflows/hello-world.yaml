@@ -23,13 +23,14 @@ jobs:
         with:
           name: code
           path: .  
-      - name: my-step
+      - name: Build a jar file
         run: chmod +x ci/build-app.sh && bash ci/build-app.sh
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: code
-          path: .  
+          name: code-uf-artifact
+          path: . 
+
     needs: Clone-down
 
   Test:
@@ -45,4 +46,26 @@ jobs:
         run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh    
     needs: Clone-down
 
+  Docker-image:
+  steps:
+    - name: Download a Build Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code-uf-artifact
+          path: .
+    - name: docker build
+      env:
+        docker_username: ${{ secrets.DOCKER_USERNAME }}
+        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      run: chmod +x ci/build-docker.sh && ci/build-docker.sh
+    - name: docker build
+      env:
+        docker_username: ${{ secrets.DOCKER_USERNAME }}
+        docker_password: ${{ secrets.DOCKER_PASSWORD }}
+      run: chmod +x ci/push-docker.sh && ci/push-docker.sh
+          with:
+            name: export GIT_COMMIT="GA-$GITHUB_SHA"
+            path: .
+  needs: Build
+  
     
