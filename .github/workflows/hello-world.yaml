@@ -51,7 +51,6 @@ jobs:
 
   Docker-image:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
     steps:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v2
@@ -62,6 +61,7 @@ jobs:
         run: sh chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
       - name: docker build
         run: sh chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
-    needs: Build
+    needs: [Build, Test]
+    
   
     
