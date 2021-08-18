@@ -19,17 +19,17 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Download a Build Artifact
-          uses: actions/download-artifact@v2
-          with:
-            name: code
-            path: .
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .  
       - name: my-step
         run: chmod +x ci/build-app.sh && bash ci/build-app.sh
       - name: Upload a Build Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: code
-            path: .  
+        uses: actions/upload-artifact@v2
+        with:
+          name: code
+          path: .  
     needs: Clone-down
 
   Test:
@@ -37,13 +37,12 @@ jobs:
     container: gradle:6-jdk11
     steps:
       - name: Download a Build Artifact
-            uses: actions/download-artifact@v2
-            with:
-              name: code
-              path: .
+        uses: actions/download-artifact@v2
+        with:
+          name: code
+          path: .
       - name: test-step
-        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh
-        
+        run: chmod +x ci/unit-test-app.sh && ci/unit-test-app.sh    
     needs: Clone-down
 
     
