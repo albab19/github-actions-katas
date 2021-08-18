@@ -58,9 +58,9 @@ jobs:
           name: code-uf-artifact
           path: .
       - name: docker build
-        run: sh chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
       - name: docker build
-        run: sh chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
     needs: [Build, Test]
     
   
