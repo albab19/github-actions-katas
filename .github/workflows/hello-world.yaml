@@ -47,22 +47,22 @@ jobs:
     needs: Clone-down
 
   Docker-image:
-  steps:
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: code-uf-artifact
-        path: .
-    - name: docker build
-      env:
-        docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: ${{ secrets.DOCKER_PASSWORD }}
-      run: chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
-    - name: docker build
-      env:
-        docker_username: ${{ secrets.DOCKER_USERNAME }}
-        docker_password: ${{ secrets.DOCKER_PASSWORD }}
-      run: chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: code-uf-artifact
+          path: .
+      - name: docker build
+        env:
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        run: chmod +x ci/build-docker.sh && ci/build-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+      - name: docker build
+        env:
+          docker_username: ${{ secrets.DOCKER_USERNAME }}
+          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+        run: chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
   needs: Build
   
     
