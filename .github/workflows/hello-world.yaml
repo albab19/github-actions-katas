@@ -62,6 +62,13 @@ jobs:
       - name: docker build
         run: chmod +x ci/push-docker.sh && ci/push-docker.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
     needs: [Build, Test]
+
+  Component-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run docker-compose 
+        run: chmod +x ci/component-test.sh && ci/component-test.sh && export GIT_COMMIT="GA-$GITHUB_SHA"
+    needs: Docker-image
     
   
     
