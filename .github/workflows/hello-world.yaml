@@ -49,10 +49,10 @@ jobs:
   Docker-image:
   steps:
     - name: Download a Build Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: code-uf-artifact
-          path: .
+      uses: actions/download-artifact@v2
+      with:
+        name: code-uf-artifact
+        path: .
     - name: docker build
       env:
         docker_username: ${{ secrets.DOCKER_USERNAME }}
